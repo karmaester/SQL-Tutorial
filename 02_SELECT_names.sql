@@ -32,3 +32,7 @@ SELECT name FROM world
 SELECT name
   FROM world
  WHERE name = capital 
+
+ SELECT name
+  FROM world
+ WHERE capital LIKE '% City'
