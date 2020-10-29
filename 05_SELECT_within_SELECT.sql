@@ -27,10 +27,8 @@ WHERE gdp > (SELECT MAX(gdp) FROM world
             WHERE continent = 'Europe')
 
 SELECT continent, name, area FROM world x
-  WHERE area >= ALL
-    (SELECT area FROM world y
-        WHERE y.continent=x.continent
-          AND area>0)
+  WHERE area >= ALL (SELECT area FROM world y
+    WHERE y.continent=x.continent AND area > 0)
 
 SELECT continent, name FROM world x 
 WHERE name <= ALL(SELECT name FROM world y 
@@ -38,11 +36,13 @@ WHERE name <= ALL(SELECT name FROM world y
 
 SELECT name, continent, population FROM world x 
 WHERE 25000000 >= ALL(SELECT population FROM world y 
-      WHERE x.continent = y.continent 
-      AND population > 0)
+WHERE x.continent = y.continent AND population > 0)
 
 SELECT name, continent 
 FROM world x 
-WHERE x.population >= 
-ALL (SELECT y.population*3 FROM world y 
+WHERE x.population >= ALL (SELECT y.population*3 FROM world y 
 WHERE y.continent = x.continent and population > 0 and x.name != y.name)
+
+SELECT player, teamid, coach, gtime
+  FROM goal JOIN eteam ON (teamid=id)
+ WHERE gtime<=10
